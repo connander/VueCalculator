@@ -45,6 +45,10 @@ export default {
       this.current = `${parseFloat(this.current)/100}`;
     },
     append(number) {
+      if (this.operatorClicked) {
+        this.current = '';
+        this.operatorClicked = false;
+      }
       this.current = `${this.current}${number}`;
     },
     dot() {
@@ -58,18 +62,23 @@ export default {
     },
     divide() {
       this.operator = (a ,b) => a / b;
+      this.setPrevious();
     },
     times() {
       this.operator = (a ,b) => a * b;
+      this.setPrevious();
     },
     minus() {
       this.operator = (a ,b) => a - b;
+      this.setPrevious();
     },
     plus() {
       this.operator = (a ,b) => a + b;
+      this.setPrevious();
     },
     equals() {
-
+      this.current = `${this.operator(parseFloat(this.current), parseFloat(this.previous))}`;
+      this.previous = null;
     }
   }
 
